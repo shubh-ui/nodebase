@@ -85,6 +85,7 @@ export function LoginForm() {
                                                     {...field}
                                                 />
                                             </FormControl>
+                                            <FormMessage />
                                         </FormItem>
                                         )}
                                     />
@@ -102,9 +103,19 @@ export function LoginForm() {
                                                     {...field}
                                                 />
                                             </FormControl>
+                                            <FormMessage />
                                         </FormItem>
                                         )}
                                     />
+                                    <Button type="submit" disabled={isPending} className="w-full">
+                                        Login
+                                    </Button>
+                                </div>
+                                <div className="text-center text-small">
+                                    Don't have an account? {" "}
+                                    <Link href="/signup" className="underline underline-offset-4">
+                                        Signup
+                                    </Link>
                                 </div>
                             </div>
                         </form> 
@@ -114,3 +125,5 @@ export function LoginForm() {
         </div>
     )
 }
+
+// TimeStamp: 1:55
