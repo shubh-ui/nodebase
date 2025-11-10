@@ -8,12 +8,12 @@ import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod"
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
 
-// import { authClient } from "@/lib/auth"
+import { authClient } from "@/lib/auth-client"
 
 
 const registerSchema = z.object({
@@ -28,7 +28,7 @@ const registerSchema = z.object({
 type registerFormValues = z.infer<typeof registerSchema>;
 
 export function RegisterForm() {
-    // const router = useRouter();
+    const router = useRouter();
 
     const form = useForm<registerFormValues>({
         resolver: zodResolver(registerSchema),
@@ -40,7 +40,22 @@ export function RegisterForm() {
     });
 
     const onSubmit = async (values: registerFormValues) => {
-        console.log(values);
+        await authClient.signUp.email(
+            {
+                name: values.email,
+                email: values.email,
+                password: values.password,
+                callbackURL:'/'
+            }, 
+            {
+                onSuccess: () => {
+                    router.push("/");
+                },
+                onError: (ctx) => {
+                    toast.error(ctx.error.message)
+                }
+            }
+        )
     } 
     const isPending = form.formState.isSubmitting;
 
