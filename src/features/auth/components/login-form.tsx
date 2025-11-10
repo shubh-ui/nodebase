@@ -4,16 +4,16 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { authClient } from "@/lib/auth-client";
 import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod"
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
 
-// import { authClient } from "@/lib/auth"
 
 
 const loginSchema = z.object({
@@ -24,7 +24,7 @@ const loginSchema = z.object({
 type LoginFormValues = z.infer<typeof loginSchema>;
 
 export function LoginForm() {
-    // const router = useRouter();
+    const router = useRouter();
 
     const form = useForm<LoginFormValues>({
         resolver: zodResolver(loginSchema),
@@ -35,7 +35,21 @@ export function LoginForm() {
     });
 
     const onSubmit = async (values: LoginFormValues) => {
-        console.log(values);
+        await authClient.signIn.email(
+                    {
+                        email: values.email,
+                        password: values.password,
+                        callbackURL:'/'
+                    }, 
+                    {
+                        onSuccess: () => {
+                            router.push("/");
+                        },
+                        onError: (ctx) => {
+                            toast.error(ctx.error.message)
+                        }
+                    }
+                )
     } 
     const isPending = form.formState.isSubmitting;
 
