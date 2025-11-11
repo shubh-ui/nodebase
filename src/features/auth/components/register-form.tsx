@@ -79,6 +79,7 @@ export function RegisterForm() {
                                         className="w-full"
                                         disabled={isPending}
                                     > 
+                                    <Image src="/logos/github.svg" height={20} width={20} alt="Github" />
                                     Continue with Github
                                     </Button>
 
@@ -87,7 +88,8 @@ export function RegisterForm() {
                                         type="button"
                                         className="w-full"
                                         disabled={isPending}
-                                    > 
+                                    >                                     
+                                    <Image src="/logos/google.svg" height={20} width={20} alt="Google" />                              
                                     Continue with Google
                                     </Button>
                                 </div>

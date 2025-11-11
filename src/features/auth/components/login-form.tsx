@@ -73,6 +73,7 @@ export function LoginForm() {
                                         className="w-full"
                                         disabled={isPending}
                                     > 
+                                    <Image src="/logos/github.svg" height={20} width={20} alt="Github" />
                                     Continue with Github
                                     </Button>
 
@@ -82,6 +83,7 @@ export function LoginForm() {
                                         className="w-full"
                                         disabled={isPending}
                                     > 
+                                    <Image src="/logos/google.svg" height={20} width={20} alt="Google" />
                                     Continue with Google
                                     </Button>
                                 </div>
@@ -140,4 +142,4 @@ export function LoginForm() {
     )
 }
 
-// TimeStamp: 1:55
+// TimeStamp: 2:44s
