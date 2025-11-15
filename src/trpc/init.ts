@@ -1,6 +1,5 @@
 import { auth } from '@/lib/auth';
 import { initTRPC, TRPCError } from '@trpc/server';
-import { Session } from 'inspector/promises';
 import { headers } from 'next/headers';
 import { cache } from 'react';
 export const createTRPCContext = cache(async () => {
@@ -35,5 +34,5 @@ export const protectedProcedure = t.procedure.use(async ({ctx, next}) => {
       message:"Unauthorized"
     })
   }
-  return next({ctx: {...ctx , auth: Session}});
+  return next({ctx: {...ctx , auth: session}});
 })
