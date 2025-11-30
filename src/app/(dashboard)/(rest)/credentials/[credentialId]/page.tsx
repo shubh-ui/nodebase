@@ -1,3 +1,5 @@
+import { requireSession } from "@/lib/auth-utils";
+
 interface PageProps {
     params: Promise<{
         credentialId: string
@@ -6,6 +8,7 @@ interface PageProps {
 
 const Page = async ({params}: PageProps) => {
     const {credentialId} = await params;
+    await requireSession();
     return (
         <div>Credintials : {credentialId} </div>
     )

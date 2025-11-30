@@ -3,7 +3,7 @@ import { requireSession } from "@/lib/auth-utils";
 const Page = async () => {
     await requireSession()
     return (
-        <div>Workflow</div>
+        <div>Executions</div>
     )
 }
 
