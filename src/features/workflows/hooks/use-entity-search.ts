@@ -50,7 +50,7 @@ export function useEntitySearch<T extends {
     }, [localSearch, setParams, params, debounceMs]); 
     
     return {
-        localSearch,
-        setLocalSearch,
+        searchValue: localSearch,
+        onSearchChnage: setLocalSearch,
     };
 }
