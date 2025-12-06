@@ -1,6 +1,7 @@
 "use client"
-import { EntityContainer, EntityHeader } from "@/components/entity-components";
+import { EntityContainer, EntityHeader, EntitySearch } from "@/components/entity-components";
 import { useCreateWorkflow, useSuspenceWorkflows } from "../hooks/use-workflows"
+import { useRouter } from "next/navigation";
 
 export const WorkflowList = () => {
     const workflows = useSuspenceWorkflows();
@@ -12,16 +13,32 @@ export const WorkflowList = () => {
     )
 }
 
+export const WorkflowsSearch = () => {
+    return (
+        <EntitySearch
+        value=""
+        onChange={() => {}}
+        placeholder="Search workflows"
+        />
+    )
+}
+
 export const WorkflowsHeader = ({disabled} : {disabled?: boolean}) => {
     const creatWorkflow = useCreateWorkflow();
+    const router = useRouter();
+
     const handleCreateWorkflow = () => {
-    creatWorkflow.mutate(undefined, {
-        onError:(err) => { // <--- Handler 2 (The second one)
-            //Todo open upgrate modal
-            console.log(err)
-        } 
-    })
-}
+        creatWorkflow.mutate(undefined, {
+        onSuccess: (data) => {
+            router.push(`/workflows/${data.id}`);
+
+        },
+        onError: (err) => { // <--- Handler 2 (The second one)
+                //Todo open upgrate modal
+                console.log(err)
+            }
+        })
+    }
     return (
         <>
          <EntityHeader 
@@ -40,7 +57,7 @@ export const WorkflowsContainer = ({children} : {children: React.ReactNode}) => 
     return(
         <EntityContainer
          header={<WorkflowsHeader />}
-         search={<></>}
+         search={<WorkflowsSearch />}
          pagination={<></>}
           >
             {children}
