@@ -42,14 +42,14 @@ export const workflowRouter = createTRPCRouter({
     getMany: protectedProcedure
         .input(z.object({
             page: z.number().default(PAGINATION.DEFAULT_PAGE),
-            pageSize: z.number().min(PAGINATION.MIN_PAGE_SIZE).max(PAGINATION.MAX_PAGE_SIZE),
+            pageSize: z.number().min(PAGINATION.MIN_PAGE_SIZE).max(PAGINATION.MAX_PAGE_SIZE).default(10),
             search: z.string().default("")
         }))
         .query(async ({ ctx, input }) => {
             const { page, pageSize, search } = input;
             const [items, totalCount] = await Promise.all([
                 prisma.workflow.findMany({
-                    skip: (page - 1) * 2,
+                    skip: (page - 1) * pageSize,
                     where: {
                         userId: ctx.auth.user.id,
                         name: {
@@ -63,13 +63,23 @@ export const workflowRouter = createTRPCRouter({
                     take: pageSize
                 }),
                 prisma.workflow.count({
-                    where: { userId: ctx.auth.user.id }
+                    where: { 
+                        userId: ctx.auth.user.id,
+                        name: {
+                            contains: search,
+                            mode: "insensitive"
+                        }
+                     }
                 })
             ])
 
             const totalPages = Math.ceil(totalCount / pageSize);
             const hasPreviousPage = page > 1;
             const hasNextPage = page < totalPages;
+            console.log("items", items)
+            console.log("totalCount", totalCount)
+            console.log("page", page)
+            console.log("totalPages", totalPages)
 
             return {
                 items,
