@@ -1,5 +1,5 @@
 "use client"
-import { EntityContainer, EntityHeader, EntityPagination, EntitySearch, LoadingView } from "@/components/entity-components";
+import { EmptyView, EntityContainer, EntityHeader, EntityPagination, EntitySearch, ErrorView, LoadingView } from "@/components/entity-components";
 import { useCreateWorkflow, useSuspenceWorkflows } from "../hooks/use-workflows"
 import { useRouter } from "next/navigation";
 import { useWorkflowParams } from "../hooks/use-workflow-params";
@@ -7,6 +7,9 @@ import { useEntitySearch } from "../hooks/use-entity-search";
 
 export const WorkflowList = () => {
     const workflows = useSuspenceWorkflows();
+    if(workflows.data.items.length == 0) {
+        return <WorkflowsEmpty />
+    }
 
     return (
         <div className="flex-1 flex justify-center items-center">
@@ -85,4 +88,21 @@ export const WorkflowsContainer = ({children} : {children: React.ReactNode}) => 
 
 export const WorkflowsLoading = () => {
     return <LoadingView message="Loading workflows..." />
+}
+
+
+export const WorkflowsError = () => {
+    return <ErrorView message="Error loading workflows..." />
+}
+
+export const WorkflowsEmpty = () => {
+    const createWorkflow = useCreateWorkflow();
+    const handleCreate = () => {
+        createWorkflow.mutate(undefined, {
+            onError: (error) =>
+            console.error(error)
+            // handleError(error)
+            })
+}; 
+    return <EmptyView message="No workflows found create with " onNew={handleCreate} />
 }
