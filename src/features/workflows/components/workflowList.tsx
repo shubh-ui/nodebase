@@ -1,5 +1,5 @@
 "use client"
-import { EntityContainer, EntityHeader, EntityPagination, EntitySearch } from "@/components/entity-components";
+import { EntityContainer, EntityHeader, EntityPagination, EntitySearch, LoadingView } from "@/components/entity-components";
 import { useCreateWorkflow, useSuspenceWorkflows } from "../hooks/use-workflows"
 import { useRouter } from "next/navigation";
 import { useWorkflowParams } from "../hooks/use-workflow-params";
@@ -81,4 +81,8 @@ export const WorkflowsContainer = ({children} : {children: React.ReactNode}) => 
             {children}
         </EntityContainer>
     )
+}
+
+export const WorkflowsLoading = () => {
+    return <LoadingView message="Loading workflows..." />
 }
