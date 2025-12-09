@@ -1,6 +1,6 @@
 "use client"
 import { EmptyView, EntityContainer, EntityHeader, EntityItem, EntityList, EntityPagination, EntitySearch, ErrorView, LoadingView } from "@/components/entity-components";
-import { useCreateWorkflow, useSuspenceWorkflows } from "../hooks/use-workflows"
+import { useCreateWorkflow, useRemoveWorkflow, useSuspenceWorkflows } from "../hooks/use-workflows"
 import { useRouter } from "next/navigation";
 import { useWorkflowParams } from "../hooks/use-workflow-params";
 import { useEntitySearch } from "../hooks/use-entity-search";
@@ -116,6 +116,10 @@ export const WorkflowsEmpty = () => {
 
 
 export const WorkflowItem = ({data} : {data: Workflow}) => {
+    const removeWorkflow = useRemoveWorkflow();
+    const handleRemoveWorkflow = () => {
+        removeWorkflow.mutate({id: data.id})
+    }
     return (
         <EntityItem 
             href={`/workflows/${data.id}`}
@@ -131,8 +135,8 @@ export const WorkflowItem = ({data} : {data: Workflow}) => {
                     <WorkflowIcon className="size-5 text-muted-foreground" />
                 </div>
             }
-            onRemove={() => {}}
-            isRemoving={false}
+            onRemove={handleRemoveWorkflow}
+            isRemoving={removeWorkflow.isPending}
         />
     )
 }
