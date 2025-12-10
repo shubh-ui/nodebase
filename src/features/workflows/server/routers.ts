@@ -76,10 +76,6 @@ export const workflowRouter = createTRPCRouter({
             const totalPages = Math.ceil(totalCount / pageSize);
             const hasPreviousPage = page > 1;
             const hasNextPage = page < totalPages;
-            console.log("items", items)
-            console.log("totalCount", totalCount)
-            console.log("page", page)
-            console.log("totalPages", totalPages)
 
             return {
                 items,
