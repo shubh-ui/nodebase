@@ -2,12 +2,13 @@
 
 import { ErrorView, LoadingView } from "@/components/entity-components";
 import { useState, useCallback } from 'react';
-import { ReactFlow, applyNodeChanges, applyEdgeChanges, addEdge, Node, Edge, type NodeChange, type EdgeChange, type Connection, Background, Controls, MiniMap } from '@xyflow/react';
+import { ReactFlow, applyNodeChanges, applyEdgeChanges, addEdge, Node, Edge, type NodeChange, type EdgeChange, type Connection, Background, Controls, MiniMap, Panel } from '@xyflow/react';
 
 import { useSuspenseWorkflow } from "@/features/workflows/hooks/use-workflows";
 
 import '@xyflow/react/dist/style.css';
 import { nodeComponents } from "@/config/node-components";
+import { AddNodeButton } from "@/components/add-node-button";
 
 export const EditorLoading = () => {
     return <LoadingView message="Loading editor..." />
@@ -49,6 +50,9 @@ export const Editor = ({ workflowId }: { workflowId: string }) => {
                 <Background />
                 <Controls />
                 <MiniMap />
+                <Panel position="top-right">
+                    <AddNodeButton />
+                </Panel>
             </ReactFlow>
         </div>
     )
