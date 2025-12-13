@@ -1,6 +1,6 @@
 "use client";
 
-import { type NodeProps, Position } from "@xyflow/react";
+import { type NodeProps, Position, useReactFlow } from "@xyflow/react";
 import type { LucideIcon } from "lucide-react";
 import Image from "next/image";
 import { memo, type ReactNode, useCallback } from "react"; 
@@ -28,8 +28,17 @@ export const BaseTriggerNode = memo(({
     onSettings,
     onDoubleClick
 }: BaseTriggerNodeProps) => {
+    const {setNodes, setEdges} = useReactFlow();
     const handleDelete = () => {
+        setNodes((currentNodes) => {
+            const updatedNodes = currentNodes.filter((node) => node.id !== id);
+            return updatedNodes;
+        });
 
+        setEdges((currentEdges) => {
+            const upadatedEdges = currentEdges.filter((edge) => edge.source !== id && edge.target !== id);
+            return upadatedEdges;
+        })
     }
 
     return (
@@ -39,6 +48,7 @@ export const BaseTriggerNode = memo(({
          onDelete={handleDelete}
          onSettings={onSettings}
         >
+      
             <BaseNode onDoubleClick={onDoubleClick}
                 className="rounded-l-2xl relative group"
                 >
