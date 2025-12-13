@@ -7,6 +7,7 @@ import { memo, type ReactNode, useCallback } from "react";
 import { BaseNode, BaseNodeContent } from "@/components/react-flow/base-node";
 import { BaseHandle } from "@/components/react-flow/base-handle";
 import { WorkflowNode } from "@/features/workflows/components/workflow-node";
+import { NodeStatusIndicator } from "@/components/react-flow/node-status-indicator";
 
 
 interface BaseTriggerNodeProps extends NodeProps {
@@ -48,7 +49,11 @@ export const BaseTriggerNode = memo(({
          onDelete={handleDelete}
          onSettings={onSettings}
         >
-      
+            <NodeStatusIndicator 
+             status="loading"
+             variant="border"
+             className="rounded-l-2xl"
+            >
             <BaseNode onDoubleClick={onDoubleClick}
                 className="rounded-l-2xl relative group"
                 >
@@ -66,6 +71,7 @@ export const BaseTriggerNode = memo(({
                     />
                 </BaseNodeContent>
             </BaseNode>
+            </NodeStatusIndicator>
         </WorkflowNode>
     )
 });
