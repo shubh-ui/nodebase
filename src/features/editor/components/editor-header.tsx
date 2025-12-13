@@ -12,7 +12,7 @@ import {
 import { Input } from "@/components/ui/input"; 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { useSuspenseWorkflow, useUpdateWorkflow } from "@/features/workflows/hooks/use-workflows";
+import { useSuspenseWorkflow, useUpdateWorkflowName } from "@/features/workflows/hooks/use-workflows";
 
 
 export const EditorSaveButton = ({ workflowId }: { workflowId: string }) => {
@@ -27,7 +27,7 @@ export const EditorSaveButton = ({ workflowId }: { workflowId: string }) => {
 
 export const EditorNameInput = ({ workflowId }: { workflowId: string }) => {
     const { data: workflow } = useSuspenseWorkflow(workflowId);
-    const updateWorkflow = useUpdateWorkflow();
+    const updateWorkflow = useUpdateWorkflowName();
     const [isEditing, setIsEditing] = useState(false);
     const [name,  setName] = useState(workflow.name);
 
