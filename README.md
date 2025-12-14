@@ -1,36 +1,72 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Codebase ⚙️  
+**An n8n-inspired workflow automation platform**
 
-## Getting Started
+Codebase is a modern, developer-first workflow automation platform inspired by n8n.  
+It enables users to build, execute, and monitor automated workflows using **trigger nodes**, **execution nodes**, and **AI-powered integrations** — all through a clean, extensible architecture.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 🚀 Features
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- **Visual Workflow Builder**
+  - Node-based architecture inspired by n8n
+  - Connect trigger nodes to execution nodes
+  - Extensible node system for future integrations
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **Trigger Nodes**
+  - Webhook triggers
+  - Scheduled (cron-based) triggers
+  - External event triggers (e.g. form submissions, API events)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- **Execution Nodes**
+  - API calls (REST-based execution)
+  - Data transformation & conditional logic
+  - AI-powered processing nodes (LLM-based)
 
-## Learn More
+- **AI Integration**
+  - AI nodes for summarization, classification, and data enrichment
+  - Supports prompt-based dynamic execution
+  - Designed to plug in multiple AI providers
 
-To learn more about Next.js, take a look at the following resources:
+- **Workflow Execution Engine**
+  - Orchestrates node execution in sequence
+  - Persists execution state and logs
+  - Handles retries and failures gracefully
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **Type-safe API Layer**
+  - End-to-end type safety using tRPC
+  - No REST boilerplate between frontend and backend
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- **Authentication & Authorization**
+  - Secure user authentication
+  - Workflow ownership and access control
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 🛠️ Tech Stack
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Frontend
+- **React.js**
+- **Next.js (App Router)**
+- **Tailwind CSS**
+- **React Flow** (for node-based UI)
+
+### Backend
+- **Next.js API / Server Actions**
+- **tRPC** – fully type-safe API
+- **Prisma ORM**
+
+### Database
+- **PostgreSQL**
+- **NeonDB** (serverless Postgres)
+
+### AI & Integrations
+- OpenAI / LLM providers (pluggable)
+- Webhooks & external APIs
+
+---
+
+## 🧠 System Design Overview
+
+```txt
+Trigger Node → Execution Engine → Execution Nodes → AI Processing → Output
