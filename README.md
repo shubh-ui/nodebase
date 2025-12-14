@@ -57,7 +57,7 @@ Drag-and-drop nodes to design automation flows with triggers and execution logic
 ### ⚡ HTTP Configuration
 Configure webhook, schedule, or event-based triggers with dynamic inputs such as headers, query params, and payload mappings.
 
-![HTTP Configuration](public/Preview/Http-config.png)
+![HTTP Configuration](public/Preview/Http_config.png)
 
 
 ---
