@@ -1,7 +1,7 @@
-# Codebase ⚙️  
+# Nodebase ⚙️  
 **An n8n-inspired workflow automation platform**
 
-Codebase is a modern, developer-first workflow automation platform inspired by n8n.  
+Nodebase is a modern, developer-first workflow automation platform inspired by n8n.  
 It enables users to build, execute, and monitor automated workflows using **trigger nodes**, **execution nodes**, and **AI-powered integrations** — all through a clean, extensible architecture.
 
 ---
@@ -42,6 +42,45 @@ It enables users to build, execute, and monitor automated workflows using **trig
   - Workflow ownership and access control
 
 ---
+
+## 📸 Product Preview
+
+> A quick look at how workflows are designed, executed, and monitored in Codebase.
+
+### 🧩 Workflow Builder
+Drag-and-drop nodes to design automation flows with triggers and execution logic.
+
+![Workflow Builder](./screenshots/workflow-builder.png)
+
+---
+
+### ⚡ Trigger Configuration
+Configure webhook, schedule, or event-based triggers with dynamic inputs.
+
+![Trigger Node](./screenshots/trigger-node.png)
+
+---
+
+### 🧠 AI Execution Node
+AI-powered nodes that process data using prompt-based instructions.
+
+![AI Node](./screenshots/ai-node.png)
+
+---
+
+### ▶️ Workflow Execution
+Run workflows manually or automatically and track execution progress in real time.
+
+![Execution View](./screenshots/workflow-execution.png)
+
+---
+
+### 📊 Execution Logs & Debugging
+Inspect node-level execution logs, inputs, outputs, and errors.
+
+![Execution Logs](./screenshots/execution-logs.png)
+
+
 
 ## 🛠️ Tech Stack
 
