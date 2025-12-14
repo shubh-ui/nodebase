@@ -50,7 +50,7 @@ It enables users to build, execute, and monitor automated workflows using **trig
 ### 🧩 Workflow Builder
 Drag-and-drop nodes to design automation flows with triggers and execution logic.
 
-![Workflow Builder](/Preview/workflow_list.png)
+![Workflow Builder](Preview/workflow_list.png)
 
 ---
 
