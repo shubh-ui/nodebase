@@ -71,7 +71,7 @@ AI-powered nodes that process data using prompt-based instructions.
 ### ▶️ Workflow Execution
 Run workflows manually or automatically and track execution progress in real time.
 
-![Execution View](./screenshots/workflow-execution.png)
+![Execution View](public/Preview/workflow_execution.png)
 
 ---
 
