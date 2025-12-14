@@ -1,9 +1,11 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
 import {
     Dialog, 
     DialogContent, 
     DialogDescription, 
+    DialogFooter, 
     DialogHeader, 
     DialogTitle,
 } from "@/components/ui/dialog";
@@ -36,6 +38,7 @@ method: z. enum ( ["GET", "POST", "PUT", "PATCH", "DELETE"]),
 body: z.string().optional()
 // refine!
 })
+export type FormType = z.infer<typeof formSchema>;
 
 interface Props {
     open: boolean;
@@ -72,6 +75,15 @@ export const HttpRequestDialog = ({
         onSubmit(values);
         onOpenChange(false);
     }
+
+    // Reset form values when dialog opens with new defaults
+    useEffect(() => {
+        if (open) {
+            form.reset({
+                endpoint: defaultEndpoint, method: defaultMethod, body: defaultBody,
+            })
+        }
+    }, [open, defaultEndpoint, defaultMethod, defaultBody])
 
 
     return (
@@ -152,6 +164,9 @@ export const HttpRequestDialog = ({
                                 />
                             )
                         }
+                        <DialogFooter className="mt-4">
+                            <Button type="submit">Save</Button>
+                        </DialogFooter>
                     </form>
                 </Form>
             </DialogContent>
