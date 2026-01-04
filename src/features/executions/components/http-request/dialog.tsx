@@ -38,32 +38,28 @@ method: z. enum ( ["GET", "POST", "PUT", "PATCH", "DELETE"]),
 body: z.string().optional()
 // refine!
 })
-export type FormType = z.infer<typeof formSchema>;
+export type HttpRwquestFormValues = z.infer<typeof formSchema>;
 
 interface Props {
     open: boolean;
     onOpenChange: (open: boolean) => void;
     onSubmit: (values: z.infer<typeof formSchema>) => void,
-    defaultEndpoint?: string,
-    defaultMethod?: "GET" | "POST" | "PUT" | "DELETE" | "PATCH",
-    defaultBody?: string
+    defaultValues: Partial<HttpRwquestFormValues>
 }
 
 export const HttpRequestDialog = ({
     open,
     onOpenChange,
     onSubmit,
-    defaultEndpoint = "",
-    defaultBody = "",
-    defaultMethod = "GET"
+    defaultValues = {}
 }:Props) =>  {
 
     const form = useForm<z.infer <typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues : {
-            body:defaultBody,
-            endpoint: defaultEndpoint,
-            method: defaultMethod
+            body:defaultValues.body || "",
+            endpoint: defaultValues.endpoint || "",
+            method: defaultValues.method || "GET"
         }
     });
 
@@ -80,10 +76,10 @@ export const HttpRequestDialog = ({
     useEffect(() => {
         if (open) {
             form.reset({
-                endpoint: defaultEndpoint, method: defaultMethod, body: defaultBody,
+                endpoint: defaultValues.endpoint, method: defaultValues.method, body: defaultValues.body,
             })
         }
-    }, [open, defaultEndpoint, defaultMethod, defaultBody])
+    }, [open, defaultValues])
 
 
     return (
