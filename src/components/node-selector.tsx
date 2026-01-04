@@ -4,7 +4,8 @@ import { createId } from "@paralleldrive/cuid2";
 import { useReactFlow } from "@xyflow/react";
 import {
     GlobeIcon,
-    MousePointerIcon
+    MousePointerIcon,
+    WebhookIcon
 } from "lucide-react";
 import { useCallback } from "react";
 import { toast } from "sonner";
@@ -26,6 +27,18 @@ const triggerNodes: NodeTypeOption[] = [
         label: "Trigger manually",
         description: "Runs the flow on clicking a button. Good for getting started quickly",
         icon: MousePointerIcon,
+    },
+    {
+        type: NodeType.MANUAL_TRIGGER,
+        label: "On webhook call",
+        description: "Runs the flow on receiving an HTTP request.",
+        icon: WebhookIcon,
+    },
+     {
+        type: NodeType.MANUAL_TRIGGER,
+        label: "Googel Form",
+        description: "Runs the flow when google form is submitted.",
+        icon: '/googleform.svg',
     }
 ]
 
@@ -35,6 +48,12 @@ const executionNodes: NodeTypeOption[] = [
         label: "HTTP Request",
         description: "Makes an HTTP request",
         icon: GlobeIcon,
+    },
+    {
+        type: NodeType.HTTP_REQUEST,
+        label: "OpenAI",
+        description: "Uses the OpenAI to generate text",
+        icon: '/openai.svg',
     }
 ]
 
