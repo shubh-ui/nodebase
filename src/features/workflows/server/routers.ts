@@ -5,8 +5,24 @@ import { createTRPCRouter, protectedProcedure } from "@/trpc/init";
 import z, { string } from "zod";
 import { PAGINATION } from "@/config/constants";
 import { NodeType } from "@/generated/prisma/enums";
+import { inngest } from "@/inngest/client";
 
 export const workflowRouter = createTRPCRouter({
+     execute: protectedProcedure
+     .input(z.object({id: z.string()}))
+     .mutation(async ({ input, ctx }) => {
+        inngest.send({
+            name: "workflow/execute.workflow",
+            data:{
+                workflowId: input.id
+            }
+        })
+        const workflow = prisma.workflow.findFirstOrThrow({
+            where: {id: input.id , userId: ctx.auth.user.id}
+        })
+
+        return workflow;
+    }),
     create: protectedProcedure.mutation(({ ctx }) => {
         return prisma.workflow.create({
             data: {
