@@ -8,7 +8,6 @@ export const executeWorkflow = inngest.createFunction(
   { event: "workflow/execute.workflow" },
   async ({ event, step }) => {
     const workflowId = event.data.workflowId;
-    await step.sleep("wait-a-moment-Ai-call", "5s");
     const nodes = await step.run("prepare workflow", async () => {
       const workflow = await prisma.workflow.findUnique({
         where : {
