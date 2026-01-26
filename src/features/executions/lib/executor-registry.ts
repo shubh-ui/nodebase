@@ -10,7 +10,7 @@ export const executorRegistry :Record<NodeType, unknown> = {
 export const getExecutor = (type: NodeType) : unknown => {
     const executor = executorRegistry[type];
     if(!executor) {
-        throw new Error(`No executor registry found for ${type}`)
+        throw new Error(`No executor registry found for node type: ${type}`)
     }
 
     return executor;
