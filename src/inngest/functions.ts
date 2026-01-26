@@ -1,6 +1,7 @@
 import prisma from "@/lib/db";
 import { inngest } from "./client";
 import { NonRetriableError } from "inngest";
+import { topologicalSort } from "./utils";
 
 
 export const executeWorkflow = inngest.createFunction(
@@ -8,7 +9,7 @@ export const executeWorkflow = inngest.createFunction(
   { event: "workflow/execute.workflow" },
   async ({ event, step }) => {
     const workflowId = event.data.workflowId;
-    const nodes = await step.run("prepare workflow", async () => {
+    const sortedNodes = await step.run("prepare workflow", async () => {
       const workflow = await prisma.workflow.findUnique({
         where : {
           id: workflowId
@@ -23,9 +24,9 @@ export const executeWorkflow = inngest.createFunction(
         throw new NonRetriableError("Workflow not found.")
       }
 
-      return workflow.nodes;
+      return topologicalSort(workflow.nodes, workflow.connections);
     })
 
-    return { nodes }
+    return { sortedNodes }
   },
 );
