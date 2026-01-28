@@ -1,13 +1,16 @@
 import { NodeType } from "@/generated/prisma/enums";
+import { NodeExecutor } from "../types";
+import { manualTriggerExecutor } from "@/features/triggers/components/manual-trigger/executor";
+import { httpRequestExecutor } from "@/features/executions/components/http-request/executor";
 
-export const executorRegistry :Record<NodeType, unknown> = {
-[NodeType.MANUAL_TRIGGER] : () => {},
-[NodeType.HTTP_REQUEST] : () => {},
-[NodeType.INITIAL] : () => {}
+export const executorRegistry :Record<NodeType, NodeExecutor> = {
+    [NodeType.INITIAL] : manualTriggerExecutor,
+    [NodeType.MANUAL_TRIGGER] : manualTriggerExecutor,
+    [NodeType.HTTP_REQUEST] : httpRequestExecutor
 }
 
 
-export const getExecutor = (type: NodeType) : unknown => {
+export const getExecutor = (type: NodeType) : NodeExecutor => {
     const executor = executorRegistry[type];
     if(!executor) {
         throw new Error(`No executor registry found for node type: ${type}`)
