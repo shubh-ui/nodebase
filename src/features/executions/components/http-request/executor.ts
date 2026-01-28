@@ -1,3 +1,4 @@
+import Handlebars from "handlebars";
 import { NodeExecutor } from "@/features/executions/types";
 import { NonRetriableError } from "inngest";
 import ky, { Options as KyOptions } from "ky";
@@ -31,7 +32,7 @@ export const httpRequestExecutor: NodeExecutor<HttpRequestData> = async ({
     }
 
     const result = await step.run("http-request", async () => {
-        const endpoint = data.endpoint!;
+        const endpoint = Handlebars.compile(data.endpoint)(context);
         const method = data.method || "GET";
         const options: KyOptions = { method };
 
